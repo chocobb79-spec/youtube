@@ -1,8 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { AppStep, ScriptAnalysis, TopicSuggestion } from './types';
-import { analyzeScriptAndSuggestTopics, generateNewScript } from './services/gemini';
+import { analyzeScriptAndSuggestTopics, generateNewScript, setApiKey } from './services/gemini';
 import { Button } from './components/Button';
 import { StepIndicator } from './components/StepIndicator';
+import { ApiKeySettings } from './components/ApiKeySettings';
 import { 
   Wand2, 
   FileText, 
@@ -25,9 +26,19 @@ const App: React.FC = () => {
   const [generatedScript, setGeneratedScript] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [apiKey, setApiKeyState] = useState<string>('');
+
+  const handleApiKeySet = (key: string) => {
+    setApiKeyState(key);
+    setApiKey(key);
+  };
 
   // Handlers
   const handleAnalyze = async () => {
+    if (!apiKey) {
+      setError("API 키를 먼저 설정해주세요.");
+      return;
+    }
     if (!inputScript.trim()) {
       setError("대본을 입력해주세요.");
       return;
@@ -236,8 +247,11 @@ const App: React.FC = () => {
               TubeRemaster AI
             </h1>
           </div>
-          <div className="text-xs font-medium text-slate-400 bg-slate-100 px-3 py-1 rounded-full">
-            Powered by Gemini 2.5 Flash
+          <div className="flex items-center gap-3">
+            <ApiKeySettings onApiKeySet={handleApiKeySet} />
+            <div className="text-xs font-medium text-slate-400 bg-slate-100 px-3 py-1 rounded-full hidden sm:block">
+              Powered by Gemini 2.5 Flash
+            </div>
           </div>
         </div>
       </header>

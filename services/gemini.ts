@@ -1,8 +1,18 @@
 import { GoogleGenAI, Type, Schema } from "@google/genai";
 import { ScriptAnalysis } from "../types";
 
-const apiKey = process.env.API_KEY || '';
-const ai = new GoogleGenAI({ apiKey });
+let currentApiKey = '';
+
+export const setApiKey = (apiKey: string) => {
+  currentApiKey = apiKey;
+};
+
+const getAI = () => {
+  if (!currentApiKey) {
+    throw new Error('API 키가 설정되지 않았습니다.');
+  }
+  return new GoogleGenAI({ apiKey: currentApiKey });
+};
 
 // Schema for the analysis response to ensure strict JSON structure
 const analysisSchema: Schema = {
@@ -39,6 +49,7 @@ const analysisSchema: Schema = {
 };
 
 export const analyzeScriptAndSuggestTopics = async (sourceScript: string): Promise<ScriptAnalysis> => {
+  const ai = getAI();
   const model = "gemini-2.5-flash";
   
   const prompt = `
@@ -82,6 +93,7 @@ export const generateNewScript = async (
   topicTitle: string,
   analysis: ScriptAnalysis
 ): Promise<string> => {
+  const ai = getAI();
   const model = "gemini-2.5-flash";
 
   const structureText = analysis.structureSteps.join(" -> ");
