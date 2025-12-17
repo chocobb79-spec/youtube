@@ -50,7 +50,7 @@ const analysisSchema: Schema = {
 
 export const analyzeScriptAndSuggestTopics = async (sourceScript: string): Promise<ScriptAnalysis> => {
   const ai = getAI();
-  const model = "gemini-2.5-flash";
+  const model = "gemini-1.5-flash"; // 무료 모델
   
   const prompt = `
     당신은 유튜브 알고리즘 및 콘텐츠 전략 전문가입니다.
@@ -94,7 +94,7 @@ export const generateNewScript = async (
   analysis: ScriptAnalysis
 ): Promise<string> => {
   const ai = getAI();
-  const model = "gemini-2.5-flash";
+  const model = "gemini-1.5-flash"; // 무료 모델
 
   const structureText = analysis.structureSteps.join(" -> ");
   

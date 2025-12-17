@@ -139,7 +139,7 @@ const App: React.FC = () => {
         </div>
       </div>
       <h3 className="mt-6 text-xl font-bold text-slate-800">{message}</h3>
-      <p className="mt-2 text-slate-500 max-w-md">Gemini 2.5 AI가 대본의 성공 방정식을 분석하고 있습니다...</p>
+      <p className="mt-2 text-slate-500 max-w-md">Gemini 1.5 Flash AI가 대본의 성공 방정식을 분석하고 있습니다...</p>
     </div>
   );
 
@@ -266,7 +266,7 @@ const App: React.FC = () => {
           <div className="flex items-center gap-3">
             <ApiKeySettings onApiKeySet={handleApiKeySet} />
             <div className="text-xs font-medium text-slate-400 bg-slate-100 px-3 py-1 rounded-full hidden sm:block">
-              Powered by Gemini 2.5 Flash
+              Powered by Gemini 1.5 Flash (Free)
             </div>
           </div>
         </div>

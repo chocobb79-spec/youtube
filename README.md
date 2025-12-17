@@ -14,7 +14,7 @@
 
 - **Frontend**: React 19, TypeScript
 - **Build Tool**: Vite
-- **AI**: Google Gemini 2.5 Flash API
+- **AI**: Google Gemini 1.5 Flash API (무료)
 - **Styling**: Tailwind CSS (inline)
 - **Icons**: Lucide React
 - **Markdown**: React Markdown
@@ -148,4 +148,4 @@ MIT License
 
 ---
 
-Made with ❤️ using Google Gemini 2.5 Flash
+Made with ❤️ using Google Gemini 1.5 Flash (Free)
