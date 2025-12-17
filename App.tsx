@@ -205,6 +205,12 @@ const App: React.FC = () => {
     );
   };
 
+  const handleBackToTopics = () => {
+    setStep(AppStep.TOPIC_SELECTION);
+    setGeneratedScript('');
+    setSelectedTopic(null);
+  };
+
   const renderResultStep = () => (
     <div className="animate-fade-in space-y-6">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -215,6 +221,10 @@ const App: React.FC = () => {
           </p>
         </div>
         <div className="flex gap-2 w-full md:w-auto">
+          <Button variant="secondary" onClick={handleBackToTopics} className="flex-1 md:flex-none">
+            <ArrowRight className="w-4 h-4 rotate-180" />
+            다른 주제 선택
+          </Button>
           <Button variant="secondary" onClick={handleReset} className="flex-1 md:flex-none">
             <RefreshCw className="w-4 h-4" />
             처음으로
