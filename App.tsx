@@ -55,8 +55,11 @@ const App: React.FC = () => {
       const result = await analyzeScriptAndSuggestTopics(inputScript);
       setAnalysis(result);
       setStep(AppStep.TOPIC_SELECTION);
-    } catch (err) {
-      setError("분석 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+    } catch (err: any) {
+      const errorMessage = err?.message?.includes('overloaded') || err?.message?.includes('503')
+        ? "AI 서버가 일시적으로 과부하 상태입니다. 10-20초 후 다시 시도해주세요."
+        : "분석 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.";
+      setError(errorMessage);
       setStep(AppStep.INPUT);
     }
   };
@@ -72,8 +75,11 @@ const App: React.FC = () => {
       const script = await generateNewScript(topic.title, analysis);
       setGeneratedScript(script);
       setStep(AppStep.RESULT);
-    } catch (err) {
-      setError("대본 생성 중 오류가 발생했습니다.");
+    } catch (err: any) {
+      const errorMessage = err?.message?.includes('overloaded') || err?.message?.includes('503')
+        ? "AI 서버가 일시적으로 과부하 상태입니다. 10-20초 후 다른 주제를 선택해주세요."
+        : "대본 생성 중 오류가 발생했습니다. 다시 시도해주세요.";
+      setError(errorMessage);
       setStep(AppStep.TOPIC_SELECTION);
     }
   };
